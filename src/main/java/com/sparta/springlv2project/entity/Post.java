@@ -5,10 +5,8 @@ import io.jsonwebtoken.Claims;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Getter
-@Setter
 @Entity
 @NoArgsConstructor
 @Table(name="post")
@@ -23,8 +21,8 @@ public class Post extends Timestamped {
     @Column(nullable = false)
     private String contents;
 
-    public Post(PostRequestDto postRequestDto, Claims userInfo) {
-        this.username = userInfo.getSubject();
+    public Post(PostRequestDto postRequestDto, Claims username) {
+        this.username = username.getSubject();
         this.subject = postRequestDto.getSubject();
         this.contents = postRequestDto.getContents();
     }

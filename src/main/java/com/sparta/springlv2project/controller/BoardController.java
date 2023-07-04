@@ -14,34 +14,24 @@ import java.util.List;
 @RequestMapping("/board")
 public class BoardController {
     private final BoardService boardService;
-
     public BoardController(BoardService boardService) {
         this.boardService = boardService;
     }
 
     @PostMapping("/posting")
-    public ResponseEntity<String> posting(@RequestBody PostRequestDto postRequestDto, HttpServletRequest req) {
-        boardService.posting(postRequestDto, req);
+    public ResponseEntity<String> posting(@RequestBody PostRequestDto postRequestDto, HttpServletRequest res){
+        boardService.posting(postRequestDto, res);
         return ResponseEntity.status(HttpStatus.OK).body("포스팅 완료 !");
     }
-
     @GetMapping("/all")
     public List<PostResponseDto> getAllPost() {
+
         return boardService.getAllPost();
     }
-
     @GetMapping("/user")
-    public List<PostResponseDto> getUserPost(HttpServletRequest req) {
-        return boardService.getUserPost(req);
+    public List<PostResponseDto> getUserPost(HttpServletRequest res){
+        return boardService.getUserPost(res);
     }
 
-    @PatchMapping("/{boardId}")
-    public PostResponseDto patchBoardById(@PathVariable Long boardId, @RequestBody PostRequestDto postRequestDto, HttpServletRequest req) {
-        return boardService.patchBoardById(boardId, postRequestDto, req);
-    }
-
-    @DeleteMapping("/{boardId}")
-    public Long deleteBoardById(@PathVariable Long boardId, HttpServletRequest req) {
-        return boardService.deleteBoardById(boardId, req);
-    }
+    //수정 & 삭제기능 구현 필요22
 }
